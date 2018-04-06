@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../style/popup.css"/>
+    <title>todo list</title>
+</head>
+<body>
+    <div class="todos">
+        <div class="wrapper">
+            <h1 class="title">todos</h1>
+            <div class="content">
+                <section class="section">
+                    <input type="text" class="todo-input" id="inputTodo" placeholder="add a todo"/>
+                    <ul class="todo-list" id="todoList"></ul>
+                </section>
+                <footer class="footer" id="footer">
+                    <span class="todo-count">
+                        <strong id="countNum"></strong>
+                        <span>items</span>
+                    </span>
+                    <ul class="filter-button">
+                        <li><a class="selected">All</a></li>
+                        <li><a>Active</a></li>
+                        <li><a>Completed</a></li>
+                    </ul>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <script src="../script/jquery.min.js"></script>
+    <script src="../script/popup.js"></script>
+</body>
+</html>
