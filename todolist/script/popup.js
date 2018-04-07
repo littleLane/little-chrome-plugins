@@ -68,11 +68,17 @@
 
     //编辑 todo
     function editTodo(destroyDom) {
-        destroyDom.dblclick(function () {
+        destroyDom.dblclick(function (e) {
             const _this = $(this);
             const _edit = _this.find('.edit');
-            _edit.focus();
+
+            //首页这里要注意 addClass 和 focus 的顺序一定不能变
+            //原因：默认 .edit 对应的元素是隐藏的，对其设置 focus 是无效的
+            const _editVal = _edit.val();
             _this.addClass('editing');
+
+            //这里先置空再设置 focus 是为让光标至于文本末尾
+            _edit.val('').focus().val(_editVal);
 
             _edit.keyup(function (e) {
                 const _value = $(this).val();
@@ -85,9 +91,8 @@
 
                         //存储 todos
                         setStorage(function () {
-                            _this.find('label').text(_value);
-                            _this.find('.edit').val(_value);
                             _this.removeClass('editing');
+                            _this.find('.label').text(_value);
                         });
                     }
                 }
@@ -122,11 +127,13 @@
         $todoList.html(strHtml);
         $countNum.text(length);
 
+        //绑定删除事件
         $('.destroy').click(function(){
             handleRemove($('.destroy').index($(this)), $(this).parents('li'));
-        })
+        });
 
-        editTodo($('.todo'))
+        //绑定编辑
+        editTodo($('.todo'));
     }
 
     //渲染单条数据
@@ -135,7 +142,7 @@
             <li class="todo">
                 <div class="view">
                     <input type="checkbox" class="toggle"/>
-                    <label>${text}</label>
+                    <label class="label">${text}</label>
                     <a class="destroy"></a>
                 </div>
                 <input type="text" value="${text}" class="edit"/>
